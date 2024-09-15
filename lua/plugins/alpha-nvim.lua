@@ -26,7 +26,9 @@ return {
 					":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
 				dashboard.button("q", "  > Quit NVIM", ":qa<CR>"),
 			}
-
+			dashboard.section.footer.val = {
+				" Ram Panjwani ",
+			}
 			alpha.setup(dashboard.opts)
 
 			vim.cmd([[
