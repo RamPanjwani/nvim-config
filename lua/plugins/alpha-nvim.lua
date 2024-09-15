@@ -27,7 +27,7 @@ return {
 				dashboard.button("q", "  > Quit NVIM", ":qa<CR>"),
 			}
 			dashboard.section.footer.val = {
-				" Ram Panjwani ",
+				" Ram Panjwani",
 			}
 			alpha.setup(dashboard.opts)
 
