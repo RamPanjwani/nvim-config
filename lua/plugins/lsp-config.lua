@@ -19,40 +19,30 @@ return {
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+			-- Function to enable format on save
+			local function format_on_save(client, bufnr)
+				if client.server_capabilities.documentFormattingProvider then
+					vim.api.nvim_create_autocmd("BufWritePre", {
+						buffer = bufnr,
+						callback = function() vim.lsp.buf.format({ bufnr = bufnr }) end,
+					})
+				end
+			end
+
 			local lspconfig = require("lspconfig")
-			lspconfig.ts_ls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.solargraph.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.html.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.lua_ls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.cssls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.clangd.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.sqlls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.bashls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.sqlls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.jsonls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.emmet_ls.setup({
-				capabilities = capabilities,
-			})
+			local servers = {
+				"ts_ls", "solargraph", "html", "lua_ls", "cssls",
+				"clangd", "sqlls", "bashls", "jsonls", "emmet_ls"
+			}
+
+			for _, lsp in ipairs(servers) do
+				lspconfig[lsp].setup({
+					capabilities = capabilities,
+					on_attach = function(client, bufnr)
+						format_on_save(client, bufnr)
+					end,
+				})
+			end
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
@@ -61,3 +51,4 @@ return {
 		end,
 	},
 }
+
