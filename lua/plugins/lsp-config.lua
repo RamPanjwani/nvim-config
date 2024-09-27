@@ -18,23 +18,20 @@ return {
 		lazy = false,
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-			-- Function to enable format on save
 			local function format_on_save(client, bufnr)
 				if client.server_capabilities.documentFormattingProvider then
 					vim.api.nvim_create_autocmd("BufWritePre", {
 						buffer = bufnr,
-						callback = function() vim.lsp.buf.format({ bufnr = bufnr }) end,
+						callback = function()
+							vim.lsp.buf.format({ bufnr = bufnr })
+						end,
 					})
 				end
 			end
-
 			local lspconfig = require("lspconfig")
 			local servers = {
-				"ts_ls", "solargraph", "html", "lua_ls", "cssls",
-				"clangd", "sqlls", "bashls", "jsonls", "emmet_ls"
+				"lua_ls",
 			}
-
 			for _, lsp in ipairs(servers) do
 				lspconfig[lsp].setup({
 					capabilities = capabilities,
@@ -43,7 +40,6 @@ return {
 					end,
 				})
 			end
-
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
 			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
@@ -51,4 +47,3 @@ return {
 		end,
 	},
 }
-
