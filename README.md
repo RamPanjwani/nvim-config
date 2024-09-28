@@ -1,5 +1,5 @@
 # My Neovim Config
-##Plugins
+## Plugins
 - Plugin Manager - lazy.nvim
 - Language Parser - nvim-treesitter
 - Language Server Configuration
