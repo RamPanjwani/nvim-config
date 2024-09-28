@@ -1,4 +1,19 @@
 # My Neovim Config
+    ## Dependencies
+        - git
+        - nerd font
+        - luarocks
+        - tar
+        - curl
+        - gcc
+        - g++
+        - wget
+        - unzip
+        - gtar
+        - gzip
+        - pwsh
+        - jsregexp
+        - ripgrep
 ## Plugins
 - Plugin Manager - lazy.nvim
 - Language Parser - nvim-treesitter
